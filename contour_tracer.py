@@ -105,6 +105,8 @@ class ContourTracer(ImageViewer):
     def __init__(self, screen_width, screen_height, image_location=None, downsample=DOWNSAMPLE):
         super().__init__(screen_width, screen_height, image_location, downsample)
 
+        self.magnet = True
+
         if image_location is None:
             # points in lasso
             self.points = []
@@ -115,7 +117,7 @@ class ContourTracer(ImageViewer):
     def load_image(self, image_location, downsample=DOWNSAMPLE):
         super().load_image(image_location, downsample)
 
-        # points in lasso
+        # reset points in lasso
         self.points = []
         self.contours = []
         self.next_point = (0, 0)
@@ -163,6 +165,8 @@ class ContourTracer(ImageViewer):
             preview = self.handle_display_points(self.im.copy(), thickness_scale_factor=2)
             cv2.imwrite(CONTOUR_PREVIEW_SAVE_LOCATION, preview)
             return True
+        elif key == ord("c"):  # "c" toggle contour magnet or line
+            self.magnet = not self.magnet
         return False
 
     def handle_display_points(self, image, thickness_scale_factor=1):
@@ -223,7 +227,7 @@ class ContourTracer(ImageViewer):
                         min_dist = abs(dist)
                         closest_contour = i
 
-                if closest_contour >= 0:
+                if closest_contour >= 0 and self.magnet:
                     # find closest contour points for next contour
                     start_ind, (start_point_x, start_point_y) = \
                         find_closest_contour_point(contours[closest_contour], (last_point_x, last_point_y))

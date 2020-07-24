@@ -32,7 +32,9 @@ of interest.
 - Click on the image preview in the GUI to open the contour selection dialog
 - Pan around the image using W,A,S,D keys and zoom in and out using E,Q keys.
 - Select contour points by clicking with the left mouse button. After your first click, as you move your mouse, a 
-green preview will latch onto the closest recognized contours. See recommended practices below.
+green preview will latch onto the closest recognized contours ("magnet mode") or connect to your previous point with a 
+straight line ("straight line mode"). See recommended practices below.
+- Press the C key to toggle between "magnet mode" and "straight line mode" for contour selection
 - Right click to undo the previous selection.
 - If you are trying to lasso a closed loop, make your last click very close to your first click.
 - Press ENTER key to save selections.
@@ -40,7 +42,7 @@ green preview will latch onto the closest recognized contours. See recommended p
 - You can click on the preview again to edit your selection at any time
 
 
- ![select contours](demo/select_contours.png)
+![select contours](demo/select_contours.png)
  
 #### Set Scale
 Set the scale to convert from pixels to real-world coordinates. You can use a caliper or a ruler to measure a dimension
@@ -96,6 +98,13 @@ to select.
 
 ## Recommended Practices
 
+#### Use pictures from different directions/views
+By taking multiple pictures with a top, front, and/or side view, you can better recreate 3D geometry. The following
+example shows how front and side views of a scraper tool were used to build a model in just 1 extrude and 1 extrude-cut
+operation.
+
+![scraper example](demo/scraper_example.png)
+
 #### Preprocess Images
 It will make the process much easier later on if you start by cropping, rotating, and straightening image files
 before loading into CADLasso. 
@@ -138,3 +147,13 @@ specific amount in all directions. If you have a perfect circle, these will be t
 than it is tall, or vice versa, they are very different.
 
 ![tolerance vs scale](demo/scaling_vs_tolerance.png)
+
+## Next Steps
+
+- Improve contour algorithm. 
+  - Better recognition
+  - Connect multiple contours in a single click
+- Add Fusion 360 GUI so you don't need to edit settings in the script
+- Incorporate the CADLasso python GUI into Fusion 360 as an add-on so that the entire process is much more seamless and 
+intuitive. This has proven difficult so far because you cannot easily import libraries (like numpy and OpenCV when 
+running scripts in Fusion).
